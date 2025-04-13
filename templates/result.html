@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты анализа - {{ filename }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            background-color: #f8f9fa;
+        }
+        .graphs-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .header {
+            color: #343a40;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .subheader {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .info-card {
+            margin-bottom: 2rem;
+        }
+        .feature-value {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .feature-name {
+            font-weight: normal;
+            color: #6c757d;
+        }
+        .btn-back {
+            margin-top: 1rem;
+        }
+        .graph-img {
+            max-width: 100%;
+            height: auto;
+        }
+        .audio-features {
+            margin-top: 2rem;
+        }
+        .feature-explanation {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Результаты анализа</h1>
+        <h2 class="subheader text-center">{{ filename }}</h2>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="graphs-container">
+                    <h3 class="mb-4">Графики амплитуды:</h3>
+                    <img src="{{ graphs_img }}" alt="Графики амплитуды" class="graph-img">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card info-card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title mb-0">Основная информация</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="feature-name">Количество сегментов:</span>
+                            <span class="feature-value">{{ num_segments }}</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="feature-name">Минимальная амплитуда:</span>
+                            <span class="feature-value">{{ "%.6f"|format(min_amplitude) }}</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="feature-name">Максимальная амплитуда:</span>
+                            <span class="feature-value">{{ "%.6f"|format(max_amplitude) }}</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="feature-name">Средняя амплитуда:</span>
+                            <span class="feature-value">{{ "%.6f"|format(avg_amplitude) }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card audio-features">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="card-title mb-0">Характеристики аудио</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="feature-name">Длительность:</span>
+                            <span class="feature-value">{{ audio_features.duration }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="feature-name">Темп:</span>
+                            <span class="feature-value">{{ audio_features.tempo }}</span>
+                            <div class="feature-explanation">Beats Per Minute (удары в минуту) - скорость музыки</div>
+                        </div>
+                        <div class="mb-3">
+                            <span class="feature-name">Яркость звука:</span>
+                            <span class="feature-value">{{ audio_features.brightness }}</span>
+                            <div class="feature-explanation">Спектральный центроид - характеризует "яркость" звука</div>
+                        </div>
+                        <div class="mb-3">
+                            <span class="feature-name">Энергия:</span>
+                            <span class="feature-value">{{ audio_features.energy }}</span>
+                            <div class="feature-explanation">Общая энергия звукового сигнала</div>
+                        </div>
+                        <div class="mb-3">
+                            <span class="feature-name">Соотношение гармоник к перкуссии:</span>
+                            <span class="feature-value">{{ audio_features.harmonic_percussive_ratio }}</span>
+                            <div class="feature-explanation">Высокое значение - больше мелодии, низкое - больше ритма</div>
+                        </div>
+                        <div class="mb-3">
+                            <span class="feature-name">Громкость:</span>
+                            <span class="feature-value">{{ audio_features.loudness }}</span>
+                            <div class="feature-explanation">Средняя громкость аудиофайла (RMS)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="/" class="btn btn-primary btn-back">Вернуться на главную</a>
+        </div>
+    </div>
+
+</body>
+</html>
