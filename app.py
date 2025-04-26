@@ -1,4 +1,3 @@
-
 import os
 import numpy as np
 import librosa
@@ -15,7 +14,7 @@ matplotlib.use('Agg')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024  # 32 MB limit
+app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
